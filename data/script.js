@@ -189,10 +189,12 @@ function setGradient() {
 }
 
 // Set fade
-const fadeSpeed = document.querySelector('#fade-value');
+const fadeSpeedInput = document.querySelector('#fade-value');
 
 function setFadeSpeed() {
-    console.log('Speed: ' + fadeSpeed.value);
+    let fadeSpeed = 10000 - fadeSpeedInput.value;
+
+    console.log('Speed: ' + fadeSpeed);
 
     hue1 = Math.round(gradientValue1.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -203,12 +205,11 @@ function setFadeSpeed() {
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    speed = (10000 - fadeSpeed.value) + 'ms';
-    document.documentElement.style.setProperty('--speed', speed);
+    document.documentElement.style.setProperty('--speed', fadeSpeed + 'ms');
 
     setBrightness();
 
-    websocket.send("fadeSpeedValue" + fadeSpeed.value.toString());
+    websocket.send("fadeSpeedValue" + fadeSpeed.toString());
 }
 
 // Detect rainbow speed
@@ -226,79 +227,86 @@ function setRainbowSpeed() {
 }
 
 // Set Breathe
-const breatheColor = document.querySelector('#breathe-color-value');
-const breatheSpeed = document.querySelector('#breathe-speed-value');
+const breatheColorInput = document.querySelector('#breathe-color-value');
+const breatheSpeedInput = document.querySelector('#breathe-speed-value');
 
 function setBreathe() {
-    console.log('Color: ' + breatheColor.value);
-    console.log('Speed: ' + breatheSpeed.value);
+    let breatheColor = breatheColorInput.value;
+    let breatheSpeed = 10000 - breatheSpeedInput.value;
 
-    hue1 = Math.round(breatheColor.value * 1.41176);
+    console.log('Color: ' + breatheColor);
+    console.log('Speed: ' + breatheSpeed);
+
+    hue1 = Math.round(breatheColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(breatheColor.value * 1.41176);
+    hue2 = Math.round(breatheColor * 1.41176);
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    speed = (10000 - breatheSpeed.value) + 'ms';
-    document.documentElement.style.setProperty('--speed', speed);
+    document.documentElement.style.setProperty('--speed', breatheSpeed + 'ms');
 
     setBrightness();
 
-    websocket.send("BreatheColorValue" + breatheColor.value.toString());
-    websocket.send("BreatheSpeedValue" + breatheSpeed.value.toString());
+    websocket.send("breatheColorValue" + breatheColor.toString());
+    websocket.send("breatheSpeedValue" + breatheSpeed.toString());
 }
 
 // Set Motion
-const motionColor = document.querySelector('#motion-color-value');
-const motionSpeed = document.querySelector('#motion-speed-value');
+const motionColorInput = document.querySelector('#motion-color-value');
+const motionSpeedInput = document.querySelector('#motion-speed-value');
 
 function setMotion() {
-    console.log('Color: ' + motionColor.value);
-    console.log('Speed: ' + motionSpeed.value);
+    let motionColor = motionColorInput.value;
+    let motionSpeed = 10000 - motionSpeedInput.value;
 
-    hue1 = Math.round(motionColor.value * 1.41176);
+    console.log('Color: ' + motionColor);
+    console.log('Speed: ' + motionSpeed);
+
+    hue1 = Math.round(motionColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(motionColor.value * 1.41176);
+    hue2 = hue2;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    speed = (10000 - motionSpeed.value) + 'ms';
-    document.documentElement.style.setProperty('--speed', speed);
+    document.documentElement.style.setProperty('--speed', motionSpeed + 'ms');
 
     setBrightness();
 
-    websocket.send("motionColorValue" + motionColor.value.toString());
-    websocket.send("motionSpeedValue" + motionSpeed.value.toString());
+    websocket.send("motionColorValue" + motionColor.toString());
+    websocket.send("motionSpeedValue" + motionSpeed.toString());
 }
 
 // Set sparkle
-const sparkleColor = document.querySelector('#sparkle-color-value');
-const sparkleSpeed = document.querySelector('#sparkle-speed-value');
+const sparkleColorInput = document.querySelector('#sparkle-color-value');
+const sparkleSpeedInput = document.querySelector('#sparkle-speed-value');
 
 function setSparkleColor() {
-    console.log('Color: ' + sparkleColor.value);
+    let sparkleColor = sparkleColorInput.value;
+    let sparkleSpeed = 10000 - sparkleSpeedInput.value;
 
-    hue1 = Math.round(sparkleColor.value * 1.41176);
+    console.log('Color: ' + sparkleColor);
+
+    hue1 = Math.round(sparkleColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(sparkleColor.value * 1.41176);
+    hue2 = hue1;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    speed = (10000 - sparkleSpeed.value) + 'ms';
     document.documentElement.style.setProperty('--speed', speed);
 
     setBrightness();
 
-    websocket.send("colorValue" + sparkleColor.value.toString());
+    websocket.send("sparkleColorValue" + sparkleColor.toString());
+    websocket.send("sparkleSpeedValue" + sparkleSpeed.toString());
 }
 
 // Brightness Controls
