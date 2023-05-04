@@ -2,6 +2,8 @@
 
 Custom LED control app.
 
+![Image](https://raw.githubusercontent.com/bgebelein/led-control/main/showcase/screenshot.png?token=GHSAT0AAAAAACBLTKZB5JZTED6BI7I376UQZCTRCDQ)
+
 ## Required
 
 - **Arduino IDE v1.x**
@@ -17,37 +19,3 @@ Custom LED control app.
 - [AsyncTCP](https://github.com/me-no-dev/AsyncTCP)
 
 After a tutorial from randomnerdtutorials.com [Link](https://randomnerdtutorials.com/esp32-web-server-websocket-sliders/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
