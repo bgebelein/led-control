@@ -266,23 +266,27 @@ main {
     }
   }
 
-  #cat {
+  .cat {
     display: grid;
-    place-items: center;
+    justify-items: center;
+    align-content: center;
     aspect-ratio: 1;
     opacity: calc(2 * var(--lit));
+    position: relative;
 
     svg {
       width: 50%;
       height: auto;
       overflow: visible;
+    }
 
-      #cat-body{
-        filter:
-          drop-shadow(0 .125rem .25rem rgba(#000, .4))
-          drop-shadow(-10rem 0 10rem hsla(var(--hue-1), var(--sat), var(--lit), 1))
-          drop-shadow(10rem 0 10rem hsla(var(--hue-2), var(--sat), var(--lit), 1));
-      }
+    svg:nth-child(2n){
+      position: absolute;
+      top: 50%;
+      transform-style: preserve-3d;
+      transform: translateY(-50%) translateZ(0);
+      z-index: -1;
+      filter: blur(80px) contrast(200%) saturate(300%);
     }
   }
 }

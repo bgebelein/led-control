@@ -71,7 +71,7 @@ function setCurrentMode(){
     document.querySelectorAll('section').forEach(section => section.setAttribute('hidden', true));
     document.querySelector('section#' + currentMode).removeAttribute('hidden');
 
-    document.querySelector('#cat').className = '';
+    document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('fade', 'breathe', 'sparkle'));
 
     if (currentMode === 'white') {
         setTemperature();
@@ -86,28 +86,27 @@ function setCurrentMode(){
     }
 
     if (currentMode === 'fade') {
-        document.querySelector('#cat').classList.add('fade');
+        document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
         setFadeSpeed();
     }
 
     if (currentMode === 'rainbow') {
-        document.querySelector('#cat').classList.add('fade');
+        document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
         setRainbowSpeed();
     }
 
     if (currentMode === 'breathe') {
-        document.querySelector('#cat').classList.add('breathe');
+        document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
         setBreathe();
     }
     
     if (currentMode === 'motion') {
-        document.querySelector('#cat').classList.add('breathe');
+        document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
         setMotion();
     }
 
     if (currentMode === 'sparkle') {
-        document.querySelector('#cat').classList.add('sparkle');
-
+        document.querySelectorAll('.cat').forEach(cat => cat.classList.add('sparkle'));
         setSparkleColor();
     }
     
