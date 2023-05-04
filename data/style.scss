@@ -169,7 +169,7 @@ header {
         border-radius: 50%;
 
         &:checked+label::before {
-          background-image: url(./images/icons/check-circle.svg);
+          background-image: url("./images/icons/check-circle.svg");
           background-size: 1.5rem;
           background-repeat: no-repeat;
           background-position: center;
@@ -320,11 +320,11 @@ main {
   }
 
   &.icons::before{
-    background-image: url(./images/icons/minus-circle-outline.svg);
+    background-image: url("./images/icons/minus-circle-outline.svg");
   }
 
   &.icons::after{
-    background-image: url(./images/icons/plus-circle-outline.svg);
+    background-image: url("./images/icons/plus-circle-outline.svg");
   }
 
   input[type=range] {
@@ -385,11 +385,11 @@ footer {
   #brightness {
 
     &::before {
-      background-image: url(./images/icons/lightbulb-outline.svg);
+      background-image: url("./images/icons/lightbulb-outline.svg");
     }
 
     &::after {
-      background-image: url(./images/icons/lightbulb-on.svg);
+      background-image: url("./images/icons/lightbulb-on.svg");
     }
   }
 
