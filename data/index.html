@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html style="--hue-1: 160; --hue-2: 200; --sat: 100%; --lit: 50%; --speed: 1s;">
+
+<head>
+    <title>LED Stand Remote Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="hsl(0, 100%, 50%)">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#111111">
+    <meta name="msapplication-TileColor" content="#111111">
+    <link rel="stylesheet" type="text/css" href="style.min.css">
+</head>
+
+<body>
+
+    <!-- Color Mode Selection -->
+
+    <header>
+        <div id="modes">
+            <div class="mode-wrapper">
+                <input type="radio" id="mode-white" name="mode" value="white">
+                <label for="mode-white">White</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input type="radio" id="mode-color" name="mode" value="color" checked>
+                <label for="mode-color">Color</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input type="radio" id="mode-gradient" name="mode" value="gradient">
+                <label for="mode-gradient">Gradient</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input class="fade" type="radio" id="mode-fade" name="mode" value="fade">
+                <label for="mode-fade">Fade</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input type="radio" id="mode-rainbow" name="mode" value="rainbow">
+                <label for="mode-rainbow">Rainbow</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input class="breathe" type="radio" id="mode-breathe" name="mode" value="breathe">
+                <label for="mode-breathe">Breathe</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input class="motion" type="radio" id="mode-motion" name="mode" value="motion">
+                <label for="mode-motion">Motion</label>
+            </div>
+
+            <div class="mode-wrapper">
+                <input class="sparkle" type="radio" id="mode-sparkle" name="mode" value="sparkle">
+                <label for="mode-sparkle">Sparkle</label>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Cat Demo -->
+
+        <div id="cat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560">
+                <defs>
+                    <radialGradient id="b" cx="280" cy="280" fx="280" fy="280"
+                        r="185.58" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#000" stop-opacity="0" />
+                        <stop offset=".8" stop-color="#000" stop-opacity=".1" />
+                        <stop offset="1" stop-color="#000" stop-opacity=".2" />
+                    </radialGradient>
+                    <linearGradient id="cat-gradient">
+                        <stop offset="0%" stop-color="hsl(var(--hue-1), var(--sat), var(--lit))" />
+                        <stop offset="100%" stop-color="hsl(var(--hue-2), var(--sat), var(--lit))" />
+                    </linearGradient>
+                </defs>
+                <path id="cat-body"
+                    d="m441.51,280.29h.02c-12.74-75.27-66.32-198.97-93.99-201.75-27.66-2.78-42.06,18-67.53,18.01-25.46,0-39.86-20.79-67.53-18.01-27.67,2.78-81.25,126.49-93.99,201.75-12.74,75.27-6.59,147.84,19.76,174.2,26.26,26.26,140.99,27.25,141.75,27.23.76.02,115.48-.97,141.75-27.23,26.35-26.35,32.5-98.93,19.76-174.2Z"
+                    fill="url(#cat-gradient)" />
+                <path
+                    d="m441.51,280.29h.02c-12.74-75.27-66.32-198.97-93.99-201.75-27.66-2.78-42.06,18-67.53,18.01-25.46,0-39.86-20.79-67.53-18.01-27.67,2.78-81.25,126.49-93.99,201.75-12.74,75.27-6.59,147.84,19.76,174.2,26.26,26.26,140.99,27.25,141.75,27.23.76.02,115.48-.97,141.75-27.23,26.35-26.35,32.5-98.93,19.76-174.2Z"
+                    fill="url(#b)" opacity=".8" />
+                <ellipse cx="237.64" cy="182.33" rx="12.34" ry="10.21"
+                    transform="translate(-55.73 121.91) rotate(-25.86)" />
+                <ellipse cx="322.38" cy="182.35" rx="10.21" ry="12.34"
+                    transform="translate(17.68 392.92) rotate(-64.14)" />
+                <path
+                    d="m293.78,198.53c-.9-1.04-2.48-1.17-3.53-.27l-4.42,3.78c-.18.15-.44.16-.63.02l-4.78-3.62c-1.95-1.48-4.58-1.5-6.56-.06l-4.24,3.09c-.18.13-.43.12-.61-.02l-4.96-3.99c-1.08-.87-2.65-.7-3.52.38s-.7,2.65.38,3.52l4.96,3.99c1.93,1.56,4.68,1.62,6.69.16l4.24-3.09c.18-.14.42-.13.6,0l4.78,3.62c.98.74,2.15,1.11,3.32,1.11h0c1.28-.01,2.56-.45,3.58-1.32l4.42-3.78c1.05-.89,1.18-2.47.28-3.52Z" />
+                <path
+                    d="m237.32,198.64c-7.16.55-12.83,2.87-12.65,5.18.18,2.31,6.13,3.74,13.29,3.19,7.16-.55,12.83-2.87,12.65-5.18-.18-2.31-6.13-3.74-13.29-3.19Z"
+                    fill="red" opacity=".1" />
+                <path
+                    d="m322.71,198.67c-7.16-.55-13.12.88-13.29,3.19-.18,2.31,5.49,4.63,12.65,5.18,7.16.55,13.12-.88,13.29-3.19.18-2.31-5.49-4.63-12.65-5.18Z"
+                    fill="red" opacity=".1" />
+            </svg>
+        </div>
+
+        <!-- Color Mode Conmtrols -->
+
+        <section id="white" hidden="true">
+            <div class="range-wrapper">
+                <input id="temperature-value" type="range" min="0" max="255" value="128" onchange="setTemperature()">
+            </div>
+        </section>
+    
+        <section id="color" hidden="true">
+            <div class="range-wrapper" >
+                <input id="color-value" class="color" type="range" min="0" max="255" value="128" onchange="setColor()">
+            </div>
+        </section>
+    
+        <section id="gradient" hidden="true">
+            <div class="range-wrapper">
+                <input id="gradient-value-1" class="color" type="range" min="0" max="255" value="160" onchange="setGradient()">
+            </div>
+            <div class="range-wrapper">
+                <input id="gradient-value-2" class="color" type="range" min="0" max="255" value="200" onchange="setGradient()">
+            </div>
+        </section>
+
+        <section id="fade" hidden="true">
+            <div class="range-wrapper icons">
+                <input id="fade-value" type="range" min="1" max="9000" value="4500" onchange="setFadeSpeed()">
+            </div>
+        </section>
+
+        <section id="rainbow" hidden="true">
+            <div class="range-wrapper icons">
+                <input id="rainbow-speed-value" type="range" min="1" max="999" value="500" onchange="setRainbowSpeed()">
+            </div>
+        </section>
+
+        <section  id="breathe" hidden="true">
+            <div class="range-wrapper">
+                <input id="breathe-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setBreathe()">
+            </div>
+            <div class="range-wrapper icons">
+                <input id="breathe-speed-value" type="range" min="1" max="9000" value="4500" onchange="setBreathe()">
+            </div>
+        </section>
+
+        <section id="motion" hidden="true">
+            <div class="range-wrapper">
+                <input id="motion-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setMotion()">
+            </div>
+            <div class="range-wrapper icons">
+                <input id="motion-speed-value" type="range" min="1" max="9000" value="4500" onchange="setMotion()">
+            </div>
+        </section>
+
+        <section id="sparkle" hidden="true">
+            <div class="range-wrapper">
+                <input id="sparkle-color-value" class="color" type="range" min="0" max="255" value="0" onchange="setSparkleColor()">
+            </div>
+            <div class="range-wrapper">
+                <input id="sparkle-speed-value" type="range" min="1" max="9000" value="4500" onchange="setSparkleColor()">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Brightness Control -->
+
+    <footer>
+        <div id="brightness" class="range-wrapper">
+            <input type="range" min="0" max="255" value="255" onchange="setBrightness()">
+        </div>
+        <button><img src="images/icons/power.svg" alt="on/off switch" title="on / off" height="24" width="24" /></button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

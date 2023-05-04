@@ -1,0 +1,507 @@
+/* ----------------------------------- Variables ----------------------------------- */
+
+$rainbow: hsl(0, 100%, 50%),
+hsl(10, 100%, 50%),
+hsl(20, 100%, 50%),
+hsl(30, 100%, 50%),
+hsl(40, 100%, 50%),
+hsl(50, 100%, 50%),
+hsl(60, 100%, 50%),
+hsl(70, 100%, 50%),
+hsl(80, 100%, 50%),
+hsl(90, 100%, 50%),
+hsl(100, 100%, 50%),
+hsl(110, 100%, 50%),
+hsl(120, 100%, 50%),
+hsl(130, 100%, 50%),
+hsl(140, 100%, 50%),
+hsl(150, 100%, 50%),
+hsl(160, 100%, 50%),
+hsl(170, 100%, 50%),
+hsl(180, 100%, 50%),
+hsl(190, 100%, 50%),
+hsl(200, 100%, 50%),
+hsl(210, 100%, 50%),
+hsl(220, 100%, 50%),
+hsl(230, 100%, 50%),
+hsl(240, 100%, 50%),
+hsl(250, 100%, 50%),
+hsl(260, 100%, 50%),
+hsl(270, 100%, 50%),
+hsl(280, 100%, 50%),
+hsl(290, 100%, 50%),
+hsl(300, 100%, 50%),
+hsl(310, 100%, 50%),
+hsl(320, 100%, 50%),
+hsl(330, 100%, 50%),
+hsl(340, 100%, 50%),
+hsl(350, 100%, 50%),
+hsl(360, 100%, 50%);
+
+/* ----------------------------------- CSS Reset ----------------------------------- */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  margin: 0;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------- Base ----------------------------------- */
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+
+body {
+  background-color: #05051A;
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----------------------------------- Typo ----------------------------------- */
+
+h1 {
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 999;
+}
+
+/* ----------------------------------- Header ----------------------------------- */
+
+header {
+  padding: 1.5rem 0;
+
+  #modes {
+    display: flex;
+    overflow-x: auto;
+    margin: 0 -.75rem;
+    padding: 0 .75rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mode-wrapper {
+      position: relative;
+      min-width: 23%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      input[type="radio"] {
+        appearance: none;
+        height: 3rem;
+        width: 3rem;
+        margin-bottom: .5rem;
+        border-radius: 50%;
+
+        &:checked+label::before {
+          background-image: url(/images/icons/check-circle.svg);
+          background-size: 1.5rem;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+
+      label {
+        &::before {
+          content: "";
+          display: block;
+          background-color: #05051A;
+          position: absolute;
+          top: .375rem;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 2.25rem;
+          height: 2.25rem;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+/* ----------------------------------- Modes ----------------------------------- */
+
+#mode-white {
+  background-color: #fff;
+}
+
+#mode-color {
+  background-color: hsl(var(--hue-1), 100%, 50%);
+}
+
+#mode-gradient {
+  background-image: linear-gradient(90deg, hsl(var(--hue-1), 100%, 50%), hsl(calc(var(--hue-1) + 40), 100%, 50%));
+}
+
+#mode-gradient:checked {
+  background-image: linear-gradient(90deg, hsl(var(--hue-1), 100%, 50%), hsl(var(--hue-2), 100%, 50%));
+}
+
+#mode-fade {
+  background-color: hsl(var(--hue-1), 100%, 50%);
+}
+
+#mode-rainbow {
+  background-image: conic-gradient($rainbow);
+}
+
+#mode-breathe {
+  background-color: hsl(var(--hue-1), 100%, 50%);
+}
+
+#mode-motion {
+  background-image: conic-gradient(hsla(var(--hue-1), 100%, 50%, 1), hsla(var(--hue-1), 100%, 50%, 0));
+}
+
+#mode-sparkle {
+  background-image: conic-gradient(
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .4),
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .2),
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .6),
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .2),
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .2),
+    hsla(var(--hue-1), 100%, 50%, 1),
+    hsla(var(--hue-1), 100%, 50%, .8),
+    hsla(var(--hue-1), 100%, 50%, 1));
+}
+
+/* ----------------------------------- Main ----------------------------------- */
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+
+  section{
+    background-color: rgba(#fff, .1);
+    padding: .75rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    &[hidden]{
+      display: none;
+    }
+  }
+
+  #cat {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    opacity: calc(2 * var(--lit));
+
+    svg {
+      width: 50%;
+      height: auto;
+      overflow: visible;
+
+      #cat-body{
+        filter:
+          drop-shadow(0 .125rem .25rem rgba(#000, .4))
+          drop-shadow(-10rem 0 10rem hsla(var(--hue-1), var(--sat), var(--lit), 1))
+          drop-shadow(10rem 0 10rem hsla(var(--hue-2), var(--sat), var(--lit), 1));
+      }
+    }
+  }
+}
+
+/* ----------------------------------- Range Sliders ----------------------------------- */
+
+.range-wrapper {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 1rem;
+  }
+
+  &::after {
+    right: 1rem;
+  }
+
+  &.icons::before{
+    background-image: url(images/icons/minus-circle-outline.svg);
+  }
+
+  &.icons::after{
+    background-image: url(images/icons/plus-circle-outline.svg);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 3.5rem;
+    width: 100%;
+    background-color: #05051A;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0;
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 0;
+    width: 0;
+    box-shadow: -80rem 0 0 80rem rgba(#fff, 0.4);
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    height: 0;
+    width: 0;
+    border: none;
+    box-shadow: -80rem 0 0 80rem rgba(#fff, 0.4);
+  }
+  
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 0;
+  }
+}
+
+/* ----------------------------------- Color Mode Controls ----------------------------------- */
+
+input[type="range"]#temperature-value {
+  background: linear-gradient(to left, #fff, #FF9329);
+}
+
+input[type="range"].color {
+  background: -webkit-linear-gradient(left, $rainbow);
+}
+
+/* ----------------------------------- Footer / Brightness ----------------------------------- */
+
+footer {
+  background-color: rgba(255, 255, 255, .1);
+  display: flex;
+  gap: .75rem;
+  border-radius: 1.5rem;
+  padding: .75rem;
+  margin-top: .75rem;
+
+  #brightness {
+
+    &::before {
+      background-image: url(images/icons/lightbulb-outline.svg);
+    }
+
+    &::after {
+      background-image: url(images/icons/lightbulb-on.svg);
+    }
+  }
+
+  button {
+    height: 3.5rem;
+    width: 3.5rem;
+    aspect-ratio: 1;
+    background-color: hsl(var(--hue-1), 100%, 50%);
+    color: #fafafa;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 0 .5rem 0 rgba(#fff, .4);
+
+    &:active{
+      box-shadow: inset 0 0 .5rem 0 rgba(#000, .4);
+    }
+  }
+}
+
+/* ----------------------------------- On / Off ----------------------------------- */
+
+/* ----------------------------------- Animations ----------------------------------- */
+
+@keyframes fade {
+  from {
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.fade{
+  animation-name: fade;
+  animation-duration: var(--speed);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes breathe {
+  from {
+    opacity: .4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.breathe{
+  animation-name: breathe;
+  animation-duration: var(--speed);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes motion {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.motion{
+  animation-name: motion;
+  animation-iteration-count: infinite;
+  animation-duration: var(--speed);
+  animation-timing-function: linear;
+}
+
+@keyframes sparkle {
+  0% {
+    filter: brightness(1);
+  }
+
+  10% {
+    filter: brightness(1.05);
+  }
+
+  30% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.05);
+  }
+
+  80% {
+    filter: brightness(1);
+  }
+
+  90% {
+    filter: brightness(1.05);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.sparkle{
+  animation-name: sparkle;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-duration: var(--speed);
+  animation-timing-function: linear;
+}
+
+/* ----------------------------------- Mobile ----------------------------------- */
+
+@media (orientation: portrait) {}
