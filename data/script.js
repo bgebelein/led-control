@@ -208,8 +208,7 @@ function setFadeSpeed() {
 
     setBrightness();
 
-    let fadeSpeedValue = 1000 - fadeSpeed.value;
-    websocket.send("fadeSpeedValue" + fadeSpeedValue.toString());
+    websocket.send("fadeSpeedValue" + fadeSpeed.value.toString());
 }
 
 // Detect rainbow speed
@@ -223,7 +222,7 @@ function setRainbowSpeed() {
     speed = 10000 - rainbowSpeed.value * 10 + 'ms';
     document.documentElement.style.setProperty('--speed', speed);
 
-    websocket.send("rainbowSpeedValue" + rainbowSpeedValue.toString());
+    websocket.send("rainbowSpeedValue" + rainbowSpeed.value.toString());
 }
 
 // Set Breathe
