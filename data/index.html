@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="--hue-1: 160; --hue-2: 200; --sat: 100%; --lit: 50%; --speed: 1s;">
+<html style="--hue-1: 0; --hue-2: 0; --sat: 100%; --lit: 50%; --speed: 1000ms;">
 
 <head>
     <title>LED CAT</title>
@@ -21,42 +21,42 @@
     <header>
         <div id="modes">
             <div class="mode-wrapper">
-                <input type="radio" id="mode-white" name="mode" value="white">
+                <input type="radio" id="mode-white" name="mode" value="white" onchange="setMode()">
                 <label for="mode-white">White</label>
             </div>
 
             <div class="mode-wrapper">
-                <input type="radio" id="mode-color" name="mode" value="color" checked>
+                <input type="radio" id="mode-color" name="mode" value="color" checked onchange="setMode()">
                 <label for="mode-color">Color</label>
             </div>
 
             <div class="mode-wrapper">
-                <input type="radio" id="mode-gradient" name="mode" value="gradient">
+                <input type="radio" id="mode-gradient" name="mode" value="gradient" onchange="setMode()">
                 <label for="mode-gradient">Gradient</label>
             </div>
 
             <div class="mode-wrapper">
-                <input class="fade" type="radio" id="mode-fade" name="mode" value="fade">
+                <input class="fade" type="radio" id="mode-fade" name="mode" value="fade" onchange="setMode()">
                 <label for="mode-fade">Fade</label>
             </div>
 
             <div class="mode-wrapper">
-                <input type="radio" id="mode-rainbow" name="mode" value="rainbow">
+                <input type="radio" id="mode-rainbow" name="mode" value="rainbow" onchange="setMode()">
                 <label for="mode-rainbow">Rainbow</label>
             </div>
 
             <div class="mode-wrapper">
-                <input class="breathe" type="radio" id="mode-breathe" name="mode" value="breathe">
+                <input class="breathe" type="radio" id="mode-breathe" name="mode" value="breathe" onchange="setMode()">
                 <label for="mode-breathe">Breathe</label>
             </div>
 
             <div class="mode-wrapper">
-                <input class="motion" type="radio" id="mode-motion" name="mode" value="motion">
+                <input class="motion" type="radio" id="mode-motion" name="mode" value="motion" onchange="setMode()">
                 <label for="mode-motion">Motion</label>
             </div>
 
             <div class="mode-wrapper">
-                <input class="sparkle" type="radio" id="mode-sparkle" name="mode" value="sparkle">
+                <input class="sparkle" type="radio" id="mode-sparkle" name="mode" value="sparkle" onchange="setMode()">
                 <label for="mode-sparkle">Sparkle</label>
             </div>
         </div>
@@ -115,73 +115,27 @@
 
         <!-- Color Mode Conmtrols -->
 
-        <section id="white" hidden="true">
-            <div class="range-wrapper">
-                <input id="temperature-value" type="range" min="0" max="255" value="128" onchange="setTemperature()" />
+        <section>
+            <div id="temperature-input" class="range-wrapper" hidden>
+                <input type="range" min="50" max="100" value="75" oninput="setTemperature()" />
+            </div>
+            <div id="hue-input-1" class="range-wrapper">
+                <input type="range" min="0" max="360" value="0" oninput="setHue1()" />
+            </div>
+            <div id="hue-input-2" class="range-wrapper" hidden>
+                <input  type="range" min="0" max="360" value="0" oninput="setHue2()" />
+            </div>
+            <div id="speed-input" class="range-wrapper" hidden>
+                <input type="range" min="0" max="9999" value="5000" oninput="setSpeed()" />
             </div>
         </section>
-    
-        <section id="color" hidden="true">
-            <div class="range-wrapper" >
-                <input id="color-value" class="color" type="range" min="0" max="255" value="128" onchange="setColor()" />
-            </div>
-        </section>
-    
-        <section id="gradient" hidden="true">
-            <div class="range-wrapper">
-                <input id="gradient-value-1" class="color" type="range" min="0" max="255" value="160" onchange="setGradient()" />
-            </div>
-            <div class="range-wrapper">
-                <input id="gradient-value-2" class="color" type="range" min="0" max="255" value="200" onchange="setGradient()" />
-            </div>
-        </section>
-
-        <section id="fade" hidden="true">
-            <div class="range-wrapper icons">
-                <input id="fade-value" type="range" min="1" max="9999" value="5000" onchange="setFadeSpeed()" />
-            </div>
-        </section>
-
-        <section id="rainbow" hidden="true">
-            <div class="range-wrapper icons">
-                <input id="rainbow-speed-value" type="range" min="1" max="9999" value="5000" onchange="setRainbowSpeed()" />
-            </div>
-        </section>
-
-        <section  id="breathe" hidden="true">
-            <div class="range-wrapper">
-                <input id="breathe-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setBreathe()" />
-            </div>
-            <div class="range-wrapper icons">
-                <input id="breathe-speed-value" type="range" min="1" max="9999" value="5000" onchange="setBreathe()" />
-            </div>
-        </section>
-
-        <section id="motion" hidden="true">
-            <div class="range-wrapper">
-                <input id="motion-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setMotion()" />
-            </div>
-            <div class="range-wrapper icons">
-                <input id="motion-speed-value" type="range" min="1" max="9999" value="5000" onchange="setMotion()" />
-            </div>
-        </section>
-
-        <section id="sparkle" hidden="true">
-            <div class="range-wrapper">
-                <input id="sparkle-color-value" class="color" type="range" min="0" max="255" value="0" onchange="setSparkleColor()" />
-            </div>
-            <div class="range-wrapper icons">
-                <input id="sparkle-speed-value" type="range" min="1" max="9999" value="5000" onchange="setSparkleColor()" />
-            </div>
-        </section>
-
     </main>
 
     <!-- Brightness Control -->
 
     <footer>
         <div id="brightness" class="range-wrapper">
-            <input type="range" min="0" max="255" value="255" onchange="setBrightness()" />
+            <input type="range" min="0" max="50" value="25" oninput="setBrightness()" />
         </div>
         <button>
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m16.6 5.4-1.4 1.4c1.6 1.1 2.8 3 2.8 5.2 0 3.3-2.7 6-6 6s-6-2.7-6-6c0-2.2 1.2-4.1 2.9-5.1l-1.5-1.5c-2 1.5-3.4 3.9-3.4 6.6 0 4.4 3.6 8 8 8s8-3.6 8-8c0-2.7-1.4-5.1-3.4-6.6m-3.6-2.4h-2v10h2" fill="#fff"/></svg>

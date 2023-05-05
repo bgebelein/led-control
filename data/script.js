@@ -1,5 +1,5 @@
 // Websocket Connection
-
+/*
 var gateway = `ws://${window.location.hostname}/ws`;
 var websocket;
 window.addEventListener('load', onload);
@@ -31,7 +31,7 @@ function onClose(event) {
 }
 
 // Set Input Value on Websocket message
-/*
+
 function onMessage(event) {
     console.log(event.data);
     var ledObj = JSON.parse(event.data);
@@ -55,6 +55,155 @@ function onMessage(event) {
 }
 */
 
+
+
+/* ------------------------------------ UI Stuff ------------------------------------ */
+
+let currentMode = document.querySelector('input[type=radio]:checked').value;
+let hue1 = getComputedStyle(document.documentElement).getPropertyValue('--hue-1');
+let hue2 = getComputedStyle(document.documentElement).getPropertyValue('--hue-2');
+let sat = getComputedStyle(document.documentElement).getPropertyValue('--sat');
+let lit = getComputedStyle(document.documentElement).getPropertyValue('--lit');
+let speed = getComputedStyle(document.documentElement).getPropertyValue('--speed');
+
+const temperatureInput = document.querySelector('#temperature-input > input[type="range"]');
+const hueInput1 = document.querySelector('#hue-input-1 > input[type="range"]');
+const hueInput2 = document.querySelector('#hue-input-2 > input[type="range"]');
+const speedInput = document.querySelector('#speed-input > input[type="range"]');
+const brightnessInput = document.querySelector('#brightness > input[type="range"]');
+const btn = document.querySelector('button');
+
+function setMode(){
+    // Update currentMode value
+    currentMode = document.querySelector('input[type=radio]:checked').value;
+    console.log(`Current mode selected: ${currentMode}`);
+
+    // Remove Animations from cat
+    document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('fade', 'breathe', 'sparkle'));
+
+    // Hide all UI
+    temperatureInput.parentNode.hidden = true;
+    hueInput1.parentNode.hidden = true;
+    hueInput2.parentNode.hidden = true;
+    speedInput.parentNode.hidden = true;
+
+    // Show necessary UI
+    switch (currentMode) {
+        case 'white':
+            temperatureInput.parentNode.hidden = false;
+            setCssProps('30', '30', getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
+            break;
+        case 'color':
+            hueInput1.parentNode.hidden = false;
+            setCssProps(getCssProp('hue1'), getCssProp('hue1'), '100', getCssProp('lit'), getCssProp('speed'));
+            break;
+        case 'gradient':
+            hueInput1.parentNode.hidden = false;
+            hueInput2.parentNode.hidden = false;
+            setCssProps(hueInput1.value, hueInput2.value, '100', getCssProp('lit'), getCssProp('speed'));
+            break;
+        case 'fade':
+            document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
+            speedInput.parentNode.hidden = false;
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            break;
+        case 'rainbow':
+            document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
+            speedInput.parentNode.hidden = false;
+            setCssProps(hueInput1.value, parseInt(hueInput1.value) + 20, '100', getCssProp('lit'), speedInput.value);
+            break;
+        case 'breathe':
+            document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
+            hueInput1.parentNode.hidden = false;
+            speedInput.parentNode.hidden = false;
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            break;
+        case 'motion':
+            document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
+            hueInput1.parentNode.hidden = false;
+            speedInput.parentNode.hidden = false;
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), parseInt(speedInput.value) / 2);
+            break;
+        case 'sparkle':
+            document.querySelectorAll('.cat').forEach(cat => cat.classList.add('sparkle'));
+            hueInput1.parentNode.hidden = false;
+            speedInput.parentNode.hidden = false;
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            break;
+    }
+}
+
+setMode();
+
+// Helper
+
+function setCssProps(hue1, hue2, sat, lit, speed) {
+    document.documentElement.style.setProperty('--hue-1', hue1);
+    document.documentElement.style.setProperty('--hue-2', hue2);
+    document.documentElement.style.setProperty('--sat', sat + '%');
+    document.documentElement.style.setProperty('--lit', lit + '%');
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
+}
+
+function getCssProp(prop) {
+    if (prop === 'hue1') {
+        return getComputedStyle(document.documentElement).getPropertyValue('--hue-1');
+    }
+
+    if (prop === 'hue2') {
+        return getComputedStyle(document.documentElement).getPropertyValue('--hue-2');
+    }
+
+    if (prop === 'sat') {
+        return getComputedStyle(document.documentElement).getPropertyValue('--sat').split('%')[0];
+    }
+
+    if (prop === 'lit') {
+        return getComputedStyle(document.documentElement).getPropertyValue('--lit').split('%')[0];
+    }
+
+    if (prop === 'speed') {
+        return getComputedStyle(document.documentElement).getPropertyValue('--speed').split('ms')[0];
+    }
+}
+
+// Update UI according to input values
+
+function setTemperature() {
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), 100 - temperatureInput.value, getCssProp('lit'), getCssProp('speed'));
+}
+
+function setHue1() {
+    if(currentMode === 'gradient' || currentMode === 'white') {
+        setCssProps(hueInput1.value, getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
+    } else {
+        setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), getCssProp('speed'));
+    }
+}
+
+function setHue2() {
+    setCssProps(getCssProp('hue1'), hueInput2.value, getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
+}
+
+function setSpeed() {
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), 10000 - speedInput.value);
+}
+
+function setBrightness() {
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), getCssProp('sat'), brightnessInput.value, getCssProp('hue2'));
+}
+
+btn.addEventListener('click', function() {
+    if (brightnessInput.value < 1) {
+        brightnessInput.value = 50;
+    } else {
+        brightnessInput.value = 0;
+    }
+    setBrightness();
+});
+
+
+/*
 // Colormodes etc.
 
 let currentMode;
@@ -68,9 +217,6 @@ let speed = getComputedStyle(document.documentElement).getPropertyValue('--speed
 function setCurrentMode(){
     currentMode = document.querySelector('input[type=radio]:checked').value;
     console.log('Current mode: ' + currentMode);
-
-    document.querySelectorAll('section').forEach(section => section.setAttribute('hidden', true));
-    document.querySelector('section#' + currentMode).removeAttribute('hidden');
 
     document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('fade', 'breathe', 'sparkle'));
 
@@ -269,25 +415,7 @@ function setSparkleColor() {
     websocket.send("sparkleSpeedValue" + sparkleSpeedInput.value.toString());
 }
 
-// Brightness Controls
-const brightness = document.querySelector('#brightness > input[type="range"]');
-
-function setBrightness() {
-    lit = Math.round(brightness.value / 5.1) + '%';
-    document.documentElement.style.setProperty('--lit', lit);
-
-    websocket.send("brightnessValue" + brightness.value.toString());
-}
-
-const btn = document.querySelector('button');
-
-btn.addEventListener('click', function() {
-    if (brightness.value < 1) {
-        brightness.value = 255;
-    } else {
-        brightness.value = 0;
-    }
-    setBrightness();
-});
-
 setCurrentMode();
+
+*/
+

@@ -38,7 +38,7 @@ hsl(340, 100%, 50%),
 hsl(350, 100%, 50%),
 hsl(360, 100%, 50%);
 
-/* ----------------------------------- CSS Reset ----------------------------------- */
+/* ----------------------------------- Rest ----------------------------------- */
 
 /* Box sizing rules */
 *,
@@ -319,14 +319,6 @@ main {
     right: 1rem;
   }
 
-  &.icons::before{
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m12 20c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8m0-18c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10m-5 11h10v-2h-10' fill='%23fff'/></svg>");
-  }
-
-  &.icons::after{
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m12 20c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8m0-18c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10m1 5h-2v4h-4v2h4v4h2v-4h4v-2h-4z' fill='%23fff'/></svg>");
-  }
-
   input[type=range] {
     -webkit-appearance: none;
     appearance: none;
@@ -362,14 +354,27 @@ main {
   }
 }
 
+#speed-input{
+  &::before{
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m12 20c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8m0-18c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10m-5 11h10v-2h-10' fill='%23fff'/></svg>");
+  }
+
+  &::after{
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m12 20c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8m0-18c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10m1 5h-2v4h-4v2h4v4h2v-4h4v-2h-4z' fill='%23fff'/></svg>");
+  }
+}
+
 /* ----------------------------------- Color Mode Controls ----------------------------------- */
 
-input[type="range"]#temperature-value {
+#temperature-input input[type="range"]{
   background: linear-gradient(to left, #fff, #FF9329);
 }
 
-input[type="range"].color {
-  background: -webkit-linear-gradient(left, $rainbow);
+#hue-input-1,
+#hue-input-2 {
+  input[type="range"]{
+    background: -webkit-linear-gradient(left, $rainbow);
+  }
 }
 
 /* ----------------------------------- Footer / Brightness ----------------------------------- */
@@ -404,10 +409,9 @@ footer {
     cursor: pointer;
     display: grid;
     place-items: center;
-    box-shadow: inset 0 0 .5rem 0 rgba(#fff, .4);
 
     &:active{
-      box-shadow: inset 0 0 .5rem 0 rgba(#000, .4);
+      box-shadow: inset 0 0 .5rem 0 rgba(#000, .8);
     }
   }
 }
@@ -472,7 +476,7 @@ footer {
   }
 
   10% {
-    filter: brightness(1.05);
+    filter: brightness(1.1);
   }
 
   30% {
@@ -480,7 +484,7 @@ footer {
   }
 
   50% {
-    filter: brightness(1.05);
+    filter: brightness(1.1);
   }
 
   80% {
@@ -488,7 +492,7 @@ footer {
   }
 
   90% {
-    filter: brightness(1.05);
+    filter: brightness(1.1);
   }
 
   100% {
