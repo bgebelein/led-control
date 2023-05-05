@@ -113,20 +113,31 @@ function setCurrentMode(){
     
     setBrightness();
     
-    sendValues();
+    websocket.send("modeValue" + currentMode.toString());
 }
 
-// Update UI
+// Inputs
 const modes = document.querySelectorAll('input[type=radio]');
+const temperatureInput = document.querySelector('#temperature-value');
+const colorInput = document.querySelector('#color-value');
+const gradientValInput1 = document.querySelector('#gradient-value-1');
+const gradientValInput2 = document.querySelector('#gradient-value-2');
+const fadeSpeedInput = document.querySelector('#fade-value');
+const rainbowSpeed = document.querySelector('#rainbow-speed-value');
+const breatheColorInput = document.querySelector('#breathe-color-value');
+const breatheSpeedInput = document.querySelector('#breathe-speed-value');
+const motionColorInput = document.querySelector('#motion-color-value');
+const motionSpeedInput = document.querySelector('#motion-speed-value');
+const sparkleColorInput = document.querySelector('#sparkle-color-value');
+const sparkleSpeedInput = document.querySelector('#sparkle-speed-value');
+
+// Control modes
 
 modes.forEach(function(item) {
     item.addEventListener('change', function(e) {
         setCurrentMode();
     });
 });
-
-// Set temperature
-const temperatureInput = document.querySelector('#temperature-value');
 
 function setTemperature() {
     hue1 = 30;
@@ -140,28 +151,27 @@ function setTemperature() {
 
     lit = (50 + Math.round(temperatureInput.value / 5.1)) + '%';
     document.documentElement.style.setProperty('--lit', lit);
+
+    websocket.send("temperatureValue" + temperatureInput.value.toString());
 }
 
 // Set color
-const colorInput = document.querySelector('#color-value');
-
 function setColor() {
     hue1 = Math.round(colorInput.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(colorInput.value * 1.41176);
+    hue2 = hue1;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
     setBrightness();
+
+    websocket.send("colorValue" + colorInput.value.toString());
 }
 
 // Set gradient
-const gradientValInput1 = document.querySelector('#gradient-value-1');
-const gradientValInput2 = document.querySelector('#gradient-value-2');
-
 function setGradient() {
     hue1 = Math.round(gradientValInput1.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -173,11 +183,12 @@ function setGradient() {
     document.documentElement.style.setProperty('--sat', sat);
 
     setBrightness();
+
+    websocket.send("gradientValue1" + gradientValInput1.value.toString());
+    websocket.send("gradientValue1" + gradientValInput2.value.toString());
 }
 
 // Set fade
-const fadeSpeedInput = document.querySelector('#fade-value');
-
 function setFadeSpeed() {
     hue2 = hue1;
     document.documentElement.style.setProperty('--hue-2', hue2);
@@ -185,25 +196,24 @@ function setFadeSpeed() {
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
+    document.documentElement.style.setProperty('--speed', 10000 - fadeSpeedInput.value + 'ms');
+
     setBrightness();
 
     document.documentElement.style.setProperty('--speed', 10000 - fadeSpeedInput.value + 'ms');
 }
 
 // Detect rainbow speed
-const rainbowSpeed = document.querySelector('#rainbow-speed-value');
-
 function setRainbowSpeed() {
     hue2 = hue1 + 40;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     document.documentElement.style.setProperty('--speed', 10000 - rainbowSpeed.value + 'ms');
+
+    websocket.send("rainbowSpeedValue" + rainbowSpeed.value.toString());
 }
 
 // Set Breathe
-const breatheColorInput = document.querySelector('#breathe-color-value');
-const breatheSpeedInput = document.querySelector('#breathe-speed-value');
-
 function setBreathe() {
     hue1 = Math.round(breatheColorInput.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -217,12 +227,12 @@ function setBreathe() {
     document.documentElement.style.setProperty('--speed', 10000 - breatheSpeedInput.value + 'ms');
 
     setBrightness();
+
+    websocket.send("breatheColorValue" + breatheColorInput.value.toString());
+    websocket.send("breatheSpeedValue" + breatheSpeedInput.value.toString());
 }
 
 // Set Motion
-const motionColorInput = document.querySelector('#motion-color-value');
-const motionSpeedInput = document.querySelector('#motion-speed-value');
-
 function setMotion() {
     hue1 = Math.round(motionColorInput.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -236,12 +246,12 @@ function setMotion() {
     document.documentElement.style.setProperty('--speed', 10000 - motionSpeedInput.value + 'ms');
 
     setBrightness();
+
+    websocket.send("motionColorValue" + motionColorInput.value.toString());
+    websocket.send("motionSpeedValue" + motionSpeedInput.value.toString());
 }
 
 // Set sparkle
-const sparkleColorInput = document.querySelector('#sparkle-color-value');
-const sparkleSpeedInput = document.querySelector('#sparkle-speed-value');
-
 function setSparkleColor() {
     hue1 = Math.round(sparkleColorInput.value * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -251,10 +261,12 @@ function setSparkleColor() {
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
-
-    document.documentElement.style.setProperty('--speed', 10000 - sparkleSpeedInput.valu + 'ms');
+    document.documentElement.style.setProperty('--speed', 10000 - sparkleSpeedInput.value + 'ms');
 
     setBrightness();
+
+    websocket.send("sparkleColorValue" + sparkleColorInput.value.toString());
+    websocket.send("sparkleSpeedValue" + sparkleSpeedInput.value.toString());
 }
 
 // Brightness Controls
@@ -263,6 +275,8 @@ const brightness = document.querySelector('#brightness > input[type="range"]');
 function setBrightness() {
     lit = Math.round(brightness.value / 5.1) + '%';
     document.documentElement.style.setProperty('--lit', lit);
+
+    websocket.send("brightnessValue" + brightness.value.toString());
 }
 
 const btn = document.querySelector('button');
@@ -277,34 +291,3 @@ btn.addEventListener('click', function() {
 });
 
 setCurrentMode();
-
-
-
-function sendValues() {
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("modeValue" + currentMode.toString());
-
-    websocket.send("temperatureValue" + temperatureInput.value.toString());
-
-    websocket.send("colorValue" + colorInput.value.toString());
-
-    websocket.send("gradientValue1" + gradientValInput1.value.toString());
-    websocket.send("gradientValue1" + gradientValInput2.value.toString());
-
-    websocket.send("fadeSpeedValue" + speed.toString());
-
-    websocket.send("rainbowSpeedValue" + speed.toString());
-
-    websocket.send("breatheColorValue" + breatheColor.toString());
-    websocket.send("breatheSpeedValue" + speed.toString());
-
-    websocket.send("motionColorValue" + motionColor.toString());
-    websocket.send("motionSpeedValue" + speed.toString());
-
-    websocket.send("sparkleColorValue" + sparkleColor.toString());
-    websocket.send("sparkleSpeedValue" + speed.toString());
-
-    websocket.send("brightnessValue" + brightness.value.toString());
-}
