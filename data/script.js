@@ -125,10 +125,10 @@ modes.forEach(function(item) {
 });
 
 // Set temperature
-const temperature = document.querySelector('#temperature-value');
+const temperatureInput = document.querySelector('#temperature-value');
 
 function setTemperature() {
-    console.log('Temperature: ' + temperature.value);
+    let temperature = temperatureInput.value;
 
     hue1 = 30;
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -136,25 +136,28 @@ function setTemperature() {
     hue2 = 30;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
-    sat = (100 - Math.round(temperature.value / 2.55)) + '%';
+    sat = (100 - Math.round(temperature / 2.55)) + '%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    lit = (50 + Math.round(temperature.value / 5.1)) + '%';
+    lit = (50 + Math.round(temperature / 5.1)) + '%';
     document.documentElement.style.setProperty('--lit', lit);
 
-    websocket.send("temperatureValue" + temperature.value.toString());
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
+    websocket.send("temperatureValue" + temperature.toString());
 }
 
 // Set color
-const color = document.querySelector('#color-value');
+const colorInput = document.querySelector('#color-value');
 
 function setColor() {
-    console.log('Color: ' + color.value);
+    let color = colorInput.value;
 
-    hue1 = Math.round(color.value * 1.41176);
+    hue1 = Math.round(color * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(color.value * 1.41176);
+    hue2 = Math.round(color * 1.41176);
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
@@ -162,21 +165,24 @@ function setColor() {
 
     setBrightness();
 
-    websocket.send("colorValue" + color.value.toString());
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
+    websocket.send("colorValue" + color.toString());
 }
 
 // Set gradient
-const gradientValue1 = document.querySelector('#gradient-value-1');
-const gradientValue2 = document.querySelector('#gradient-value-2');
+const gradientValInput1 = document.querySelector('#gradient-value-1');
+const gradientValInput2 = document.querySelector('#gradient-value-2');
 
 function setGradient() {
-    console.log('Color 1: ' + gradientValue1.value);
-    console.log('Color 2: ' + gradientValue2.value);
+    let gradientColor1 = gradientValInput1.value;
+    let gradientColor2 = gradientValInput2.value;
 
-    hue1 = Math.round(gradientValue1.value * 1.41176);
+    hue1 = Math.round(gradientColor1 * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = Math.round(gradientValue2.value * 1.41176);
+    hue2 = Math.round(gradientColor2 * 1.41176);
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
@@ -184,46 +190,48 @@ function setGradient() {
 
     setBrightness();
 
-    websocket.send("GradientValue1" + gradientValue1.value.toString());
-    websocket.send("GradientValue1" + gradientValue2.value.toString());
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
+    websocket.send("gradientValue1" + gradientColor1.toString());
+    websocket.send("gradientValue1" + gradientColor2.toString());
 }
 
 // Set fade
 const fadeSpeedInput = document.querySelector('#fade-value');
 
 function setFadeSpeed() {
-    let fadeSpeed = 10000 - fadeSpeedInput.value;
-
-    console.log('Speed: ' + fadeSpeed);
-
-    hue1 = Math.round(gradientValue1.value * 1.41176);
-    document.documentElement.style.setProperty('--hue-1', hue1);
-
     hue2 = hue1;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    document.documentElement.style.setProperty('--speed', fadeSpeed + 'ms');
-
     setBrightness();
 
-    websocket.send("fadeSpeedValue" + fadeSpeed.toString());
+    speed = 10000 - fadeSpeedInput.value;
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
+
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
+    websocket.send("fadeSpeedValue" + speed.toString());
 }
 
 // Detect rainbow speed
 const rainbowSpeed = document.querySelector('#rainbow-speed-value');
 
 function setRainbowSpeed() {
-    console.log('Rainbowsize: ' + rainbowSpeed.value);
+    hue2 = hue1 + 40;
+    document.documentElement.style.setProperty('--hue-2', hue2);
 
-    let rainbowSpeedValue = 1000 - rainbowSpeed.value;
+    speed = 10000 - rainbowSpeed.value;
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
 
-    speed = 10000 - rainbowSpeed.value * 10 + 'ms';
-    document.documentElement.style.setProperty('--speed', speed);
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
 
-    websocket.send("rainbowSpeedValue" + rainbowSpeed.value.toString());
+    websocket.send("rainbowSpeedValue" + speed.toString());
 }
 
 // Set Breathe
@@ -232,10 +240,6 @@ const breatheSpeedInput = document.querySelector('#breathe-speed-value');
 
 function setBreathe() {
     let breatheColor = breatheColorInput.value;
-    let breatheSpeed = 10000 - breatheSpeedInput.value;
-
-    console.log('Color: ' + breatheColor);
-    console.log('Speed: ' + breatheSpeed);
 
     hue1 = Math.round(breatheColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -246,12 +250,16 @@ function setBreathe() {
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    document.documentElement.style.setProperty('--speed', breatheSpeed + 'ms');
+    speed = 10000 - breatheSpeedInput.value;
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
 
     setBrightness();
 
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
     websocket.send("breatheColorValue" + breatheColor.toString());
-    websocket.send("breatheSpeedValue" + breatheSpeed.toString());
+    websocket.send("breatheSpeedValue" + speed.toString());
 }
 
 // Set Motion
@@ -260,26 +268,26 @@ const motionSpeedInput = document.querySelector('#motion-speed-value');
 
 function setMotion() {
     let motionColor = motionColorInput.value;
-    let motionSpeed = 10000 - motionSpeedInput.value;
-
-    console.log('Color: ' + motionColor);
-    console.log('Speed: ' + motionSpeed);
 
     hue1 = Math.round(motionColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
 
-    hue2 = hue2;
+    hue2 = hue1;
     document.documentElement.style.setProperty('--hue-2', hue2);
 
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    document.documentElement.style.setProperty('--speed', motionSpeed + 'ms');
+    speed = 10000 - motionSpeedInput.value;
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
 
     setBrightness();
 
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
     websocket.send("motionColorValue" + motionColor.toString());
-    websocket.send("motionSpeedValue" + motionSpeed.toString());
+    websocket.send("motionSpeedValue" + speed.toString());
 }
 
 // Set sparkle
@@ -288,9 +296,6 @@ const sparkleSpeedInput = document.querySelector('#sparkle-speed-value');
 
 function setSparkleColor() {
     let sparkleColor = sparkleColorInput.value;
-    let sparkleSpeed = 10000 - sparkleSpeedInput.value;
-
-    console.log('Color: ' + sparkleColor);
 
     hue1 = Math.round(sparkleColor * 1.41176);
     document.documentElement.style.setProperty('--hue-1', hue1);
@@ -301,12 +306,16 @@ function setSparkleColor() {
     sat = '100%';
     document.documentElement.style.setProperty('--sat', sat);
 
-    document.documentElement.style.setProperty('--speed', speed);
+    speed = 10000 - sparkleSpeedInput.value;
+    document.documentElement.style.setProperty('--speed', speed + 'ms');
+
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
 
     setBrightness();
 
     websocket.send("sparkleColorValue" + sparkleColor.toString());
-    websocket.send("sparkleSpeedValue" + sparkleSpeed.toString());
+    websocket.send("sparkleSpeedValue" + speed.toString());
 }
 
 // Brightness Controls
