@@ -117,61 +117,61 @@
 
         <section id="white" hidden="true">
             <div class="range-wrapper">
-                <input id="temperature-value" type="range" min="0" max="255" value="128" onchange="setTemperature()">
+                <input id="temperature-value" type="range" min="0" max="255" value="128" oninput="setTemperature()" onchange="sendValues()" />
             </div>
         </section>
     
         <section id="color" hidden="true">
             <div class="range-wrapper" >
-                <input id="color-value" class="color" type="range" min="0" max="255" value="128" onchange="setColor()">
+                <input id="color-value" class="color" type="range" min="0" max="255" value="128" oninput="setColor()" onchange="sendValues()" />
             </div>
         </section>
     
         <section id="gradient" hidden="true">
             <div class="range-wrapper">
-                <input id="gradient-value-1" class="color" type="range" min="0" max="255" value="160" onchange="setGradient()">
+                <input id="gradient-value-1" class="color" type="range" min="0" max="255" value="160" oninput="setGradient()" onchange="sendValues()" />
             </div>
             <div class="range-wrapper">
-                <input id="gradient-value-2" class="color" type="range" min="0" max="255" value="200" onchange="setGradient()">
+                <input id="gradient-value-2" class="color" type="range" min="0" max="255" value="200" oninput="setGradient()" onchange="sendValues()" />
             </div>
         </section>
 
         <section id="fade" hidden="true">
             <div class="range-wrapper icons">
-                <input id="fade-value" type="range" min="1" max="9999" value="5000" onchange="setFadeSpeed()">
+                <input id="fade-value" type="range" min="1" max="9999" value="5000" oninput="setFadeSpeed()" onchange="sendValues()" />
             </div>
         </section>
 
         <section id="rainbow" hidden="true">
             <div class="range-wrapper icons">
-                <input id="rainbow-speed-value" type="range" min="1" max="999" value="500" onchange="setRainbowSpeed()">
+                <input id="rainbow-speed-value" type="range" min="1" max="999" value="500" oninput="setRainbowSpeed()" onchange="sendValues()" />
             </div>
         </section>
 
         <section  id="breathe" hidden="true">
             <div class="range-wrapper">
-                <input id="breathe-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setBreathe()">
+                <input id="breathe-color-value" class="color" type="range" min="0" max="255" value="128" oninput="setBreathe()" onchange="sendValues()" />
             </div>
             <div class="range-wrapper icons">
-                <input id="breathe-speed-value" type="range" min="1" max="9999" value="5000" onchange="setBreathe()">
+                <input id="breathe-speed-value" type="range" min="1" max="9999" value="5000" oninput="setBreathe()" onchange="sendValues()" />
             </div>
         </section>
 
         <section id="motion" hidden="true">
             <div class="range-wrapper">
-                <input id="motion-color-value" class="color" type="range" min="0" max="255" value="128" onchange="setMotion()">
+                <input id="motion-color-value" class="color" type="range" min="0" max="255" value="128" oninput="setMotion()" onchange="sendValues()" />
             </div>
             <div class="range-wrapper icons">
-                <input id="motion-speed-value" type="range" min="1" max="9999" value="5000" onchange="setMotion()">
+                <input id="motion-speed-value" type="range" min="1" max="9999" value="5000" oninput="setMotion()" onchange="sendValues()" />
             </div>
         </section>
 
         <section id="sparkle" hidden="true">
             <div class="range-wrapper">
-                <input id="sparkle-color-value" class="color" type="range" min="0" max="255" value="0" onchange="setSparkleColor()">
+                <input id="sparkle-color-value" class="color" type="range" min="0" max="255" value="0" oninput="setSparkleColor()" onchange="sendValues()" />
             </div>
             <div class="range-wrapper icons">
-                <input id="sparkle-speed-value" type="range" min="1" max="9999" value="5000" onchange="setSparkleColor()">
+                <input id="sparkle-speed-value" type="range" min="1" max="9999" value="5000" oninput="setSparkleColor()" onchange="sendValues()" />
             </div>
         </section>
 
@@ -181,7 +181,7 @@
 
     <footer>
         <div id="brightness" class="range-wrapper">
-            <input type="range" min="0" max="255" value="255" onchange="setBrightness()">
+            <input type="range" min="0" max="255" value="255" oninput="setBrightness()" onchange="sendValues()" />
         </div>
         <button>
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m16.6 5.4-1.4 1.4c1.6 1.1 2.8 3 2.8 5.2 0 3.3-2.7 6-6 6s-6-2.7-6-6c0-2.2 1.2-4.1 2.9-5.1l-1.5-1.5c-2 1.5-3.4 3.9-3.4 6.6 0 4.4 3.6 8 8 8s8-3.6 8-8c0-2.7-1.4-5.1-3.4-6.6m-3.6-2.4h-2v10h2" fill="#fff"/></svg>

@@ -30,14 +30,14 @@ function onClose(event) {
     setTimeout(initWebSocket, 2000);
 }
 
+// Set Input Value on Websocket message
+/*
 function onMessage(event) {
     console.log(event.data);
     var ledObj = JSON.parse(event.data);
     var keys = Object.keys(ledObj);
 
-    for (var i = 0; i < keys.length; i++){
-        var key = keys[i];
-
+    keys.forEach(function(key){
         switch (key) {
             case "colorValue":
                 color.value = ledObj[key];
@@ -50,9 +50,10 @@ function onMessage(event) {
                 break;
             default:
                 console.log("Sorry, no keys available.");
-          }
-    }
+        }
+    });
 }
+*/
 
 // Colormodes etc.
 
@@ -111,8 +112,8 @@ function setCurrentMode(){
     }
     
     setBrightness();
-
-    websocket.send("modeValue" + currentMode.toString());
+    
+    sendValues();
 }
 
 // Update UI
@@ -141,11 +142,6 @@ function setTemperature() {
 
     lit = (50 + Math.round(temperature / 5.1)) + '%';
     document.documentElement.style.setProperty('--lit', lit);
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("temperatureValue" + temperature.toString());
 }
 
 // Set color
@@ -164,11 +160,6 @@ function setColor() {
     document.documentElement.style.setProperty('--sat', sat);
 
     setBrightness();
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("colorValue" + color.toString());
 }
 
 // Set gradient
@@ -189,12 +180,6 @@ function setGradient() {
     document.documentElement.style.setProperty('--sat', sat);
 
     setBrightness();
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("gradientValue1" + gradientColor1.toString());
-    websocket.send("gradientValue1" + gradientColor2.toString());
 }
 
 // Set fade
@@ -211,11 +196,6 @@ function setFadeSpeed() {
 
     speed = 10000 - fadeSpeedInput.value;
     document.documentElement.style.setProperty('--speed', speed + 'ms');
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("fadeSpeedValue" + speed.toString());
 }
 
 // Detect rainbow speed
@@ -227,11 +207,6 @@ function setRainbowSpeed() {
 
     speed = 10000 - rainbowSpeed.value;
     document.documentElement.style.setProperty('--speed', speed + 'ms');
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("rainbowSpeedValue" + speed.toString());
 }
 
 // Set Breathe
@@ -254,12 +229,6 @@ function setBreathe() {
     document.documentElement.style.setProperty('--speed', speed + 'ms');
 
     setBrightness();
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("breatheColorValue" + breatheColor.toString());
-    websocket.send("breatheSpeedValue" + speed.toString());
 }
 
 // Set Motion
@@ -282,12 +251,6 @@ function setMotion() {
     document.documentElement.style.setProperty('--speed', speed + 'ms');
 
     setBrightness();
-
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
-    websocket.send("motionColorValue" + motionColor.toString());
-    websocket.send("motionSpeedValue" + speed.toString());
 }
 
 // Set sparkle
@@ -309,13 +272,7 @@ function setSparkleColor() {
     speed = 10000 - sparkleSpeedInput.value;
     document.documentElement.style.setProperty('--speed', speed + 'ms');
 
-    console.log(`Mode: ${currentMode}`);
-    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
-
     setBrightness();
-
-    websocket.send("sparkleColorValue" + sparkleColor.toString());
-    websocket.send("sparkleSpeedValue" + speed.toString());
 }
 
 // Brightness Controls
@@ -326,8 +283,6 @@ function setBrightness() {
 
     lit = Math.round(brightness.value / 5.1) + '%';
     document.documentElement.style.setProperty('--lit', lit);
-
-    websocket.send("brightnessValue" + brightness.value.toString());
 }
 
 const btn = document.querySelector('button');
@@ -342,3 +297,34 @@ btn.addEventListener('click', function() {
 });
 
 setCurrentMode();
+
+
+
+function sendValues() {
+    console.log(`Mode: ${currentMode}`);
+    console.log(`HHSL: ${hue1}, ${hue2}, ${sat}, ${lit}`);
+
+    websocket.send("modeValue" + currentMode.toString());
+
+    websocket.send("temperatureValue" + temperature.toString());
+
+    websocket.send("colorValue" + color.toString());
+
+    websocket.send("gradientValue1" + gradientColor1.toString());
+    websocket.send("gradientValue1" + gradientColor2.toString());
+
+    websocket.send("fadeSpeedValue" + speed.toString());
+
+    websocket.send("rainbowSpeedValue" + speed.toString());
+
+    websocket.send("breatheColorValue" + breatheColor.toString());
+    websocket.send("breatheSpeedValue" + speed.toString());
+
+    websocket.send("motionColorValue" + motionColor.toString());
+    websocket.send("motionSpeedValue" + speed.toString());
+
+    websocket.send("sparkleColorValue" + sparkleColor.toString());
+    websocket.send("sparkleSpeedValue" + speed.toString());
+
+    websocket.send("brightnessValue" + brightness.value.toString());
+}
