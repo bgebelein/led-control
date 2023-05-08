@@ -1,43 +1,40 @@
 // Websocket Connection
 
-var gateway = `ws://${window.location.hostname}/ws`;
-var websocket;
-window.addEventListener('load', onload);
+const gateway = `ws://${window.location.hostname}/ws`;
+let websocket;
 
-function onload(event) {
-    initWebSocket();
-}
+// Init websocket connection, when page is loaded
 
-// Callback functions
-
-function initWebSocket() {
-    console.log('Trying to open a WebSocket connection…');
+window.addEventListener('load', function (){
+    console.log('Trying to open a WebSocket connection …');
     websocket = new WebSocket(gateway);
+
+    // Create callback functions
     websocket.onopen = onOpen;
     websocket.onclose = onClose;
     websocket.onmessage = onMessage;
-}
+});
 
 function getValues(){
     websocket.send("getValues");
 }
 
-function onOpen(event) {
-    console.log('Connection opened');
+function onOpen() {
+    console.log('WebSocket connection opened.');
     getValues();
 }
 
-function onClose(event) {
-    console.log('Connection closed');
+function onClose() {
+    console.log('WebSocket connection closed.');
     setTimeout(initWebSocket, 2000);
 }
 
-// Set Input Value on Websocket message
+// Set input values on WebSocket message
 
 function onMessage(event) {
     console.log(event.data);
-    var ledObj = JSON.parse(event.data);
-    var keys = Object.keys(ledObj);
+    let ledObj = JSON.parse(event.data);
+    let keys = Object.keys(ledObj);
 
     keys.forEach(function(key){
         switch (key) {
