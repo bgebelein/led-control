@@ -195,12 +195,19 @@ function setBrightness() {
 }
 
 btn.addEventListener('click', function() {
+    // Set input value
     if (brightnessInput.value < 1) {
         brightnessInput.value = 50;
     } else {
         brightnessInput.value = 0;
     }
+
+    // Set CSS props
     setBrightness();
+
+    // Send WebSocket message
+    console.log('lit: ' + brightnessInput.value)
+    websocket.send('lit' + brightnessInput.value);
 });
 
 /* ------------------------------------ Websocket Message ------------------------------------ */
