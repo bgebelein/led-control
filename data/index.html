@@ -117,16 +117,16 @@
 
         <section>
             <div id="temperature-input" class="range-wrapper" hidden>
-                <input type="range" min="50" max="100" value="75" oninput="setTemperature()" />
+                <input type="range" name="temp" min="0" max="100" value="75" oninput="setTemperature()" />
             </div>
             <div id="hue-input-1" class="range-wrapper">
-                <input type="range" min="0" max="360" value="0" oninput="setHue1()" />
+                <input type="range" name="hue1" min="0" max="360" value="0" oninput="setHue1()" />
             </div>
             <div id="hue-input-2" class="range-wrapper" hidden>
-                <input  type="range" min="0" max="360" value="0" oninput="setHue2()" />
+                <input  type="range" name="hue2" min="0" max="360" value="0" oninput="setHue2()" />
             </div>
             <div id="speed-input" class="range-wrapper" hidden>
-                <input type="range" min="0" max="9999" value="5000" oninput="setSpeed()" />
+                <input type="range"name="speed"  min="0" max="9999" value="5000" oninput="setSpeed()" />
             </div>
         </section>
     </main>
@@ -135,7 +135,7 @@
 
     <footer>
         <div id="brightness" class="range-wrapper">
-            <input type="range" min="0" max="50" value="25" oninput="setBrightness()" />
+            <input type="range" name="lit" min="0" max="50" value="25" oninput="setBrightness()" />
         </div>
         <button>
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m16.6 5.4-1.4 1.4c1.6 1.1 2.8 3 2.8 5.2 0 3.3-2.7 6-6 6s-6-2.7-6-6c0-2.2 1.2-4.1 2.9-5.1l-1.5-1.5c-2 1.5-3.4 3.9-3.4 6.6 0 4.4 3.6 8 8 8s8-3.6 8-8c0-2.7-1.4-5.1-3.4-6.6m-3.6-2.4h-2v10h2" fill="#fff"/></svg>
