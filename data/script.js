@@ -46,7 +46,6 @@ function onMessage(event) {
                 break;
             case "hue1":
                 hueInput1.value = ledObj[key];
-                color.value = ledObj[key];
                 break;
             case "hue2":
                 hueInput2.value = ledObj[key];
@@ -213,8 +212,10 @@ btn.addEventListener('click', function() {
 /* ------------------------------------ Websocket Message ------------------------------------ */
 
 document.querySelectorAll('input').forEach(function(input){
-    input.addEventListener('change', function(){
-        console.log(`${input.name}: ${input.value}`);
-        websocket.send(input.name + input.value);
-    });
+    input.addEventListener('change', setTimeout(sendMessage(), '50'));
 });
+
+function sendMessage() {
+    console.log(`${input.name}: ${input.value}`);
+    websocket.send(input.name + input.value);
+}
