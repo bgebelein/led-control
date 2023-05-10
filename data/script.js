@@ -35,7 +35,6 @@ function onClose() {
 
 function onMessage(event) {
     let ledObj = JSON.parse(event.data);
-    console.log(ledObj);
     let keys = Object.keys(ledObj);
 
     keys.forEach(function(key){
@@ -44,23 +43,19 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
-                console.log(`Server: temp - ${Math.round(ledObj[key] / 2.55)}`);
                 tempInput.value = Math.round(ledObj[key] / 2.55);
                 break;
             case "hue1":
-                console.log(`Server: hue1 - ${Math.round(ledObj[key] * 1,4117647059)}`);
-                hueInput1.value = Math.round(ledObj[key] * 1,4117647059);
+                hueInput1.value = Math.round(ledObj[key] * 1.4117647059);
                 break;
             case "hue2":
-                console.log(`Server: hue2 - ${Math.round(ledObj[key] * 1,4117647059)}`);
-                hueInput2.value = Math.round(ledObj[key] * 1,4117647059);
+                hueInput2.value = Math.round(ledObj[key] * 1.4117647059);
                 break;
             case "lit":
-                console.log(`Server: lit - ${Math.round(ledObj[key] / 5.1)}`);
                 brightnessInput.value = Math.round(ledObj[key] / 5.1);
                 break;
             case "speed":
-                speedInput.value = 10000 - ledObj[key];
+                speedInput.value = 1000 - ledObj[key];
                 break;
             default:
                 console.log("Sorry, no keys available.");
@@ -192,7 +187,7 @@ function setHue2() {
 }
 
 function setSpeed() {
-    setCssProps(getCssProp('hue1'), getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), 10000 - speedInput.value);
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), 1000 - speedInput.value);
 }
 
 function setBrightness() {
