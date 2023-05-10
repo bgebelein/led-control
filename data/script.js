@@ -34,7 +34,6 @@ function onClose() {
 // Set Input Value on Websocket message
 
 function onMessage(event) {
-    console.log(event.data);
     let ledObj = JSON.parse(event.data);
     let keys = Object.keys(ledObj);
 
@@ -44,19 +43,23 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
+                console.log(`Server: temp - ${ledObj[key] / 2.55}`);
                 tempInput.value = ledObj[key] / 2.55;
                 break;
             case "hue1":
+                console.log(`Server: hue1 - ${Math.round(ledObj[key] * 1,4117647059)}`);
                 hueInput1.value = Math.round(ledObj[key] * 1,4117647059);
                 break;
             case "hue2":
+                console.log(`Server: hue2 - ${Math.round(ledObj[key] * 1,4117647059)}`);
                 hueInput2.value = Math.round(ledObj[key] * 1,4117647059);
                 break;
             case "lit":
+                console.log(`Server: lit - ${ledObj[key] / 5.1}`);
                 brightnessInput.value = ledObj[key] / 5.1;
                 break;
             case "speed":
-                speedInput.value = ledObj[key];
+                speedInput.value = 10000 - ledObj[key];
                 break;
             default:
                 console.log("Sorry, no keys available.");
@@ -214,7 +217,7 @@ btn.addEventListener('click', function() {
 
 document.querySelectorAll('input').forEach(function(input){
     input.addEventListener('change', function(){
-        console.log(`${input.name}: ${input.value}`);
+        console.log(`Client: ${input.name} - ${input.value}`);
         websocket.send(input.name + input.value);
     });
 });
