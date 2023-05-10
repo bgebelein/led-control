@@ -1,17 +1,18 @@
 // Websocket Connection
 
-const gateway = `ws://${window.location.hostname}/ws`;
-let websocket;
+var gateway = `ws://${window.location.hostname}/ws`;
+var websocket;
+window.addEventListener('load', onload);
 
-// Init websocket connection, when page is loaded
+function onload(event) {
+    initWebSocket();
+}
 
-window.addEventListener('load', initWebSocket());
+// Callback functions
 
 function initWebSocket() {
     console.log('Trying to open a WebSocket connection…');
     websocket = new WebSocket(gateway);
-
-    // Create callback functions
     websocket.onopen = onOpen;
     websocket.onclose = onClose;
     websocket.onmessage = onMessage;
@@ -21,22 +22,22 @@ function getValues(){
     websocket.send("getValues");
 }
 
-function onOpen() {
-    console.log('WebSocket connection opened.');
+function onOpen(event) {
+    console.log('Connection opened');
     getValues();
 }
 
-function onClose() {
-    console.log('WebSocket connection closed.');
-    setTimeout(initWebSocket(), 2000);
+function onClose(event) {
+    console.log('Connection closed');
+    setTimeout(initWebSocket, 2000);
 }
 
-// Set input values on WebSocket message
+// Set Input Value on Websocket message
 
 function onMessage(event) {
     console.log(event.data);
-    let ledObj = JSON.parse(event.data);
-    let keys = Object.keys(ledObj);
+    var ledObj = JSON.parse(event.data);
+    var keys = Object.keys(ledObj);
 
     keys.forEach(function(key){
         switch (key) {
@@ -44,10 +45,11 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
-                tempInput.value = ledObj[key];
+                temperatureInput.value = ledObj[key];
                 break;
             case "hue1":
                 hueInput1.value = ledObj[key];
+                color.value = ledObj[key];
                 break;
             case "hue2":
                 hueInput2.value = ledObj[key];
@@ -68,7 +70,7 @@ function onMessage(event) {
 
 let currentMode = document.querySelector('input[type=radio]:checked').value;
 
-const tempInput = document.querySelector('#temperature-input > input[type="range"]');
+const temperatureInput = document.querySelector('#temperature-input > input[type="range"]');
 const hueInput1 = document.querySelector('#hue-input-1 > input[type="range"]');
 const hueInput2 = document.querySelector('#hue-input-2 > input[type="range"]');
 const speedInput = document.querySelector('#speed-input > input[type="range"]');
@@ -84,7 +86,7 @@ function setMode(){
     document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('fade', 'breathe', 'sparkle'));
 
     // Hide all UI
-    tempInput.parentNode.hidden = true;
+    temperatureInput.parentNode.hidden = true;
     hueInput1.parentNode.hidden = true;
     hueInput2.parentNode.hidden = true;
     speedInput.parentNode.hidden = true;
@@ -92,7 +94,7 @@ function setMode(){
     // Show necessary UI
     switch (currentMode) {
         case 'white':
-            tempInput.parentNode.hidden = false;
+            temperatureInput.parentNode.hidden = false;
             setCssProps('30', '30', getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
             break;
         case 'color':
@@ -172,11 +174,11 @@ function getCssProp(prop) {
 // Update UI according to input values
 
 function setTemperature() {
-    setCssProps(getCssProp('hue1'), getCssProp('hue2'), 100 - tempInput.value, getCssProp('lit'), getCssProp('speed'));
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), 100 - temperatureInput.value, getCssProp('lit'), getCssProp('speed'));
 }
 
 function setHue1() {
-    if(currentMode === 'gradient') {
+    if(currentMode === 'gradient' || currentMode === 'white') {
         setCssProps(hueInput1.value, getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
     } else {
         setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), getCssProp('speed'));
@@ -196,26 +198,19 @@ function setBrightness() {
 }
 
 btn.addEventListener('click', function() {
-    // Set input value
     if (brightnessInput.value < 1) {
         brightnessInput.value = 50;
     } else {
         brightnessInput.value = 0;
     }
-
-    // Set CSS props
     setBrightness();
-
-    // Send WebSocket message
-    console.log('lit: ' + brightnessInput.value)
-    websocket.send('lit' + brightnessInput.value);
 });
 
 /* ------------------------------------ Websocket Message ------------------------------------ */
 
 document.querySelectorAll('input').forEach(function(input){
-    input.addEventListener('change', setTimeout(function(){
+    input.addEventListener('change', function(){
         console.log(`${input.name}: ${input.value}`);
         websocket.send(input.name + input.value);
-    }, '50'));
+    });
 });
