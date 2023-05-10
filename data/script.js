@@ -5,15 +5,17 @@ let websocket;
 
 // Init websocket connection, when page is loaded
 
-window.addEventListener('load', function (){
-    console.log('Trying to open a WebSocket connection …');
+window.addEventListener('load', initWebSocket());
+
+function initWebSocket() {
+    console.log('Trying to open a WebSocket connection…');
     websocket = new WebSocket(gateway);
 
     // Create callback functions
     websocket.onopen = onOpen;
     websocket.onclose = onClose;
     websocket.onmessage = onMessage;
-});
+}
 
 function getValues(){
     websocket.send("getValues");
@@ -26,7 +28,7 @@ function onOpen() {
 
 function onClose() {
     console.log('WebSocket connection closed.');
-    setTimeout(initWebSocket, 2000);
+    setTimeout(initWebSocket(), 2000);
 }
 
 // Set input values on WebSocket message
