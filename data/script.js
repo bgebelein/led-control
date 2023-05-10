@@ -42,7 +42,7 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
-                temperatureInput.value = ledObj[key];
+                tempInput.value = ledObj[key];
                 break;
             case "hue1":
                 hueInput1.value = ledObj[key];
@@ -66,7 +66,7 @@ function onMessage(event) {
 
 let currentMode = document.querySelector('input[type=radio]:checked').value;
 
-const temperatureInput = document.querySelector('#temperature-input > input[type="range"]');
+const tempInput = document.querySelector('#temperature-input > input[type="range"]');
 const hueInput1 = document.querySelector('#hue-input-1 > input[type="range"]');
 const hueInput2 = document.querySelector('#hue-input-2 > input[type="range"]');
 const speedInput = document.querySelector('#speed-input > input[type="range"]');
@@ -82,7 +82,7 @@ function setMode(){
     document.querySelectorAll('.cat').forEach(cat => cat.classList.remove('fade', 'breathe', 'sparkle'));
 
     // Hide all UI
-    temperatureInput.parentNode.hidden = true;
+    tempInput.parentNode.hidden = true;
     hueInput1.parentNode.hidden = true;
     hueInput2.parentNode.hidden = true;
     speedInput.parentNode.hidden = true;
@@ -90,7 +90,7 @@ function setMode(){
     // Show necessary UI
     switch (currentMode) {
         case 'white':
-            temperatureInput.parentNode.hidden = false;
+            tempInput.parentNode.hidden = false;
             setCssProps('30', '30', getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
             break;
         case 'color':
@@ -170,11 +170,11 @@ function getCssProp(prop) {
 // Update UI according to input values
 
 function setTemperature() {
-    setCssProps(getCssProp('hue1'), getCssProp('hue2'), 100 - temperatureInput.value, getCssProp('lit'), getCssProp('speed'));
+    setCssProps(getCssProp('hue1'), getCssProp('hue2'), 100 - tempInput.value, getCssProp('lit'), getCssProp('speed'));
 }
 
 function setHue1() {
-    if(currentMode === 'gradient' || currentMode === 'white') {
+    if(currentMode === 'gradient') {
         setCssProps(hueInput1.value, getCssProp('hue2'), getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
     } else {
         setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), getCssProp('speed'));
