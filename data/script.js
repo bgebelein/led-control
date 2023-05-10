@@ -196,12 +196,18 @@ function setBrightness() {
 }
 
 btn.addEventListener('click', function() {
+    // Update UI brightness slider
     if (brightnessInput.value < 1) {
         brightnessInput.value = 50;
     } else {
         brightnessInput.value = 0;
     }
+
+    // set CSS properties
     setBrightness();
+
+    // send WebSocket message
+    websocket.send('lit' + brightnessInput.value);
 });
 
 /* ------------------------------------ Websocket Message ------------------------------------ */
