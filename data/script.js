@@ -214,10 +214,10 @@ btn.addEventListener('click', function() {
 /* ------------------------------------ Websocket Message ------------------------------------ */
 
 document.querySelectorAll('input').forEach(function(input){
-    input.addEventListener('change', setTimeout(sendMessage(), '50'));
+    input.addEventListener('change', setTimeout(sendMessage(input), '50'));
 });
 
-function sendMessage() {
+function sendMessage(input) {
     console.log(`${input.name}: ${input.value}`);
     websocket.send(input.name + input.value);
 }
