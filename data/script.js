@@ -44,16 +44,16 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
-                tempInput.value = ledObj[key];
+                tempInput.value = ledObj[key] / 2.55;
                 break;
             case "hue1":
-                hueInput1.value = ledObj[key];
+                hueInput1.value = Math.round(ledObj[key] * 1,4117647059);
                 break;
             case "hue2":
-                hueInput2.value = ledObj[key];
+                hueInput2.value = Math.round(ledObj[key] * 1,4117647059);
                 break;
             case "lit":
-                brightnessInput.value = ledObj[key];
+                brightnessInput.value = ledObj[key] / 5.1;
                 break;
             case "speed":
                 speedInput.value = ledObj[key];
