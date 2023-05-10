@@ -35,6 +35,7 @@ function onClose() {
 
 function onMessage(event) {
     let ledObj = JSON.parse(event.data);
+    console.log(ledObj);
     let keys = Object.keys(ledObj);
 
     keys.forEach(function(key){
@@ -43,8 +44,8 @@ function onMessage(event) {
                 document.querySelector(`input[value="${ledObj[key]}"]`).checked = true;
                 break;
             case "temp":
-                console.log(`Server: temp - ${ledObj[key] / 2.55}`);
-                tempInput.value = ledObj[key] / 2.55;
+                console.log(`Server: temp - ${Math.round(ledObj[key] / 2.55)}`);
+                tempInput.value = Math.round(ledObj[key] / 2.55);
                 break;
             case "hue1":
                 console.log(`Server: hue1 - ${Math.round(ledObj[key] * 1,4117647059)}`);
@@ -55,8 +56,8 @@ function onMessage(event) {
                 hueInput2.value = Math.round(ledObj[key] * 1,4117647059);
                 break;
             case "lit":
-                console.log(`Server: lit - ${ledObj[key] / 5.1}`);
-                brightnessInput.value = ledObj[key] / 5.1;
+                console.log(`Server: lit - ${Math.round(ledObj[key] / 5.1)}`);
+                brightnessInput.value = Math.round(ledObj[key] / 5.1);
                 break;
             case "speed":
                 speedInput.value = 10000 - ledObj[key];
