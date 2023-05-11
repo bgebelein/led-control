@@ -37,6 +37,7 @@ function onMessage(event) {
     let ledObj = JSON.parse(event.data);
     let keys = Object.keys(ledObj);
 
+    // Set input values
     keys.forEach(function(key){
         switch (key) {
             case "mode":
@@ -62,6 +63,7 @@ function onMessage(event) {
         }
     });
 
+    // Update UI and CSS custom properties
     setMode();
 }
 
