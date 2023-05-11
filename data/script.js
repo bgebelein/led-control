@@ -61,6 +61,8 @@ function onMessage(event) {
                 console.log("Sorry, no keys available.");
         }
     });
+
+    setMode();
 }
 
 /* ------------------------------------ UI Stuff ------------------------------------ */
@@ -92,11 +94,11 @@ function setMode(){
     switch (currentMode) {
         case 'white':
             tempInput.parentNode.hidden = false;
-            setCssProps('30', '30', getCssProp('sat'), getCssProp('lit'), getCssProp('speed'));
+            setCssProps('30', '30', tempInput.value, getCssProp('lit'), getCssProp('speed'));
             break;
         case 'color':
             hueInput1.parentNode.hidden = false;
-            setCssProps(getCssProp('hue1'), getCssProp('hue1'), '100', getCssProp('lit'), getCssProp('speed'));
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), getCssProp('speed'));
             break;
         case 'gradient':
             hueInput1.parentNode.hidden = false;
@@ -106,35 +108,33 @@ function setMode(){
         case 'fade':
             document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
             speedInput.parentNode.hidden = false;
-            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), 1000 - parseInt(speedInput.value));
             break;
         case 'rainbow':
             document.querySelectorAll('.cat').forEach(cat => cat.classList.add('fade'));
             speedInput.parentNode.hidden = false;
-            setCssProps(hueInput1.value, parseInt(hueInput1.value) + 20, '100', getCssProp('lit'), speedInput.value);
+            setCssProps(hueInput1.value, parseInt(hueInput1.value) + 20, '100', getCssProp('lit'), 1000 - parseInt(speedInput.value));
             break;
         case 'breathe':
             document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
             hueInput1.parentNode.hidden = false;
             speedInput.parentNode.hidden = false;
-            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), 1000 - parseInt(speedInput.value));
             break;
         case 'motion':
             document.querySelectorAll('.cat').forEach(cat => cat.classList.add('breathe'));
             hueInput1.parentNode.hidden = false;
             speedInput.parentNode.hidden = false;
-            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), parseInt(speedInput.value) / 2);
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), 1000 - parseInt(speedInput.value));
             break;
         case 'sparkle':
             document.querySelectorAll('.cat').forEach(cat => cat.classList.add('sparkle'));
             hueInput1.parentNode.hidden = false;
             speedInput.parentNode.hidden = false;
-            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), speedInput.value);
+            setCssProps(hueInput1.value, hueInput1.value, '100', getCssProp('lit'), 1000 - parseInt(speedInput.value));
             break;
     }
 }
-
-setMode();
 
 // Helper
 
