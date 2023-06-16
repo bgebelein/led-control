@@ -19,3 +19,7 @@ Custom LED control app.
 - [AsyncTCP](https://github.com/me-no-dev/AsyncTCP)
 
 After a tutorial from randomnerdtutorials.com [Link](https://randomnerdtutorials.com/esp32-web-server-websocket-sliders/)
+
+## Arduino IDE Setup
+
+- Board: Lolin S2 Mini
