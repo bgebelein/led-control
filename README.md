@@ -37,21 +37,28 @@ So as long as V2 of Arduino IDE does not support the installation of plugins, we
 
 ### Install the plugin
 
-- Go to the [releases page](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/) and download the latest **.zip file**.
+- Go to the [releases page](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/) and download the latest `.zip` file.
 - Go to the sketchbook location.<br>
-  (Usually `C:\Users\YourUsername\Documents\Arduino` on a Windows PC and `Documents/Arduino` on a Mac)
-- Create a new folder named **tools**, if it does not already exists.
-- Copy the **ESP32FS** folder in the downloaded .zip file to the **tools** folder you created in the previous step.
-- Restart Arduino IDE
-- Make sure you can find the following menu item **Tools > ESP32 Sketch Data Upload**
+
+  > Usually `C:\Users\YourUsername\Documents\Arduino` on a Windows PC and `Documents/Arduino` on a Mac
+- Create a new folder named `tools`, if it does not already exists.
+- Copy the `ESP32FS` folder in the downloaded .zip file to the **tools** folder you created in the previous step.
+- Restart Arduino IDE.
+- Make sure you can find the following menu item `Tools > ESP32 Sketch Data Upload`.
 
 ### Using the plugin
 
-1. You will need to save an arduino sketch (can be empty)
-2. Open the folder of your sketch (**Sketch > Show Sketch Folder** in Arduino IDE)
-3. Create a folder named **data**, if it does not already exist
-4. Put all files you want to transfer to the ESP32 in the folder you created in the previous step
-5. Upload the files by selecting **Tools > ESP32 Sketch Data Upload** in the Arduino IDE<br>
-   (The uploader will overwrite anything you had already saved in the filesystem.)<br>
-   (Some ESP32 development require you to press the on-board BOOT button when you see the **Connecting …….____……** message in the Arduino IDE Console.)
-7. The fileupload was successful, when you see the message **SPIFFS Image Uploaded**.
+1. You will need to save an arduino sketch (can be empty).
+2. Open the folder of your sketch.
+
+   >`Sketch > Show Sketch Folder` in Arduino IDE
+  
+4. Create a folder named `data`, if it does not already exist.
+5. Put all files you want to transfer to the ESP32 in the folder you created in the previous step.
+6. Upload the files by selecting `Tools > ESP32 Sketch Data Upload` in the Arduino IDE
+
+   > The uploader will overwrite anything you had already saved in the filesystem.
+   
+   >Some ESP32 development require you to press the on-board BOOT button when you see the *"Connecting …….____……"* message in the Arduino IDE Console.
+  
+7. The fileupload was successful, when you see the message *"SPIFFS Image Uploaded"*.
