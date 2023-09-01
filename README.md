@@ -8,7 +8,7 @@ Based on a tutorial from [randomnerdtutorials.com](https://randomnerdtutorials.c
 
 ## Required Hardware
 
-- ESP Microcontroller (f.e. Lolin S2 Mini, which fits well into the battery compartment.)
+- ESP 32 Microcontroller (f.e. Lolin S2 Mini, which fits well into the battery compartment.)
 
 - 5V RGB LED Ring (WS2812B)
   
@@ -18,9 +18,9 @@ Based on a tutorial from [randomnerdtutorials.com](https://randomnerdtutorials.c
 
 ## Required Software
 
-- [Arduino IDE v1.8.x](https://www.arduino.cc/en/software#legacy-ide-18x)
+- [Arduino IDE v1.8.x](https://www.arduino.cc/en/software#legacy-ide-18x) (See why v1.8.x is needed in About SPIFFS FileSystem Uploader Plugin in Arduino IDE section)
 
-- [SPIFFS FileSystem Uploader Plugin in Arduino IDE](https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/) (Will only work with Arduino IDE v1.8.x, as of this writing. See [this issue](https://github.com/me-no-dev/arduino-esp32fs-plugin/issues/44) for updates)
+- [SPIFFS FileSystem Uploader Plugin in Arduino IDE](https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/)
 
 - [Arduino_JSON library by Arduino version 0.1.0](https://github.com/arduino-libraries/Arduino_JSON)
 
@@ -29,3 +29,29 @@ Based on a tutorial from [randomnerdtutorials.com](https://randomnerdtutorials.c
 - [AsyncTCP](https://github.com/me-no-dev/AsyncTCP)
   
 - [FastLED](https://fastled.io/)
+
+## About SPIFFS FileSystem Uploader Plugin in Arduino IDE
+
+As of this writing, plugins like "SPIFFS FileSystem Uploader Plugin in Arduino IDE" are only by Arduino IDE v1.8.x.
+So as long as V2 of Arduino IDE does not support the installation of plugins, we will have to stick to the older version of Arduino IDE instead.
+
+### Install the plugin
+
+- Go to the [releases page](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases/) and download the latest .zip-File.
+- Go to the sketchbook location.
+  (Usually `C:\Users\YourUsername\Documents\Arduino` on a Windows PC and `Documents/Arduino` on a Mac)
+- Create a new folder named **tools**, if it does not already exists.
+- Copy the *ESP32FS* folder in the downloaded .zip file to the *tools* folder you created in the previous step.
+- Restart Arduino IDE
+- Make sure you can find the following menu item "Tools > ESP32 Sketch Data Upload"
+
+### Using the plugin
+
+1. You will need to save an arduino sketch (can be empty)
+2. Open the folder of your sketch ("Sketch > Show Sketch Folder" in Arduino IDE)
+3. Create a folder named "data", if it does not already exist
+4. Put all files you want to transfer to the ESP32 in the folder you created in the previous step
+5. Upload the files by selecting "Tools > ESP32 Sketch Data Upload" in the Arduino IDE
+   (The uploader will overwrite anything you had already saved in the filesystem.)
+   (Some ESP32 development require you to press the on-board BOOT button when you see the “Connecting …….____……” message in the Arduino IDE Console.)
+7. The fileupload was successful, when you see the message "SPIFFS Image Uploaded“.
