@@ -1,6 +1,6 @@
 # LED Control
 
-Custom LED control app.
+Custom PWA to control LEDs via ESP32 and FastLED library.
 
 ![Image](https://raw.githubusercontent.com/bgebelein/led-control/main/showcase/screenshot.png?token=GHSAT0AAAAAACHBCKG2XYMQMZKO5SLEED6EZHR4E2Q)
 
