@@ -2,7 +2,7 @@
 
 Custom PWA to control LEDs via ESP32 and FastLED library.
 
-![Image](https://raw.githubusercontent.com/bgebelein/led-control/main/showcase/screenshot.png?token=GHSAT0AAAAAACHBCKG2XYMQMZKO5SLEED6EZHR4E2Q)
+![Image](https://raw.githubusercontent.com/bgebelein/led-control/main/showcase/screenshot.png)
 
 Based on a tutorial from [randomnerdtutorials.com](https://randomnerdtutorials.com/esp32-web-server-websocket-sliders/)
 
